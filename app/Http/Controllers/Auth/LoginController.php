@@ -49,7 +49,7 @@ class LoginController extends Controller
 
         if ($validator->fails())
         {
-            return redirect()->back()->with(array('alert-class'=>'alert-danger','message'=>'Invalid email or password!'))->withInput(Input::all());
+            return redirect()->back()->withErrors($validator->errors())->withInput(Input::all());
         }
 
         $remember = ($request->has('remember')) ? true : false;
@@ -61,7 +61,7 @@ class LoginController extends Controller
                 ->with(array('alert-class'=>'alert-success', 'message'=>'You are successfully logged in.'));
         }else{
             
-            return redirect()->back()->with(array('alert-class'=>'alert-danger','message'=>'Invalid email or password!'))->withInput(Input::all());
+            //return redirect()->back()->with(array('alert-class'=>'alert-danger','message'=>'Invalid email or password!'))->withInput(Input::all());
 
             //return redirect()->back()->withInput($request->only($this->username(), 'remember'))->withErrors(['active' => 'You must be active to login.']);
 
