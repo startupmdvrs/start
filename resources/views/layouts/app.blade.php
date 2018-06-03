@@ -13,7 +13,7 @@
     <!-- Styles -->
     <link href="{{ asset('/public/css/app.css') }}" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('/public/front/css/bootstrap.min.css') }}">
+ <!--    <link rel="stylesheet" type="text/css" href="{{ asset('/public/front/css/bootstrap.min.css') }}"> -->
     <link rel="stylesheet" type="text/css" href="{{ asset('/public/front/css/slick.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/public/front/css/fontawesome-all.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/public/front/css/style.css') }}">
@@ -22,8 +22,11 @@
 <body>
     
     <div id="app">
-        
-
+        <?php 
+            //use Illuminate\Support\Facades\Route;
+            $currentPath = Route::getFacadeRoot()->current()->uri();
+            if(!($currentPath == 'login' || $currentPath == 'register' || $currentPath == 'password/reset')):
+        ?>
         <!-- Header Start -->
         <header class="main-header">
             <div class="container">
@@ -36,8 +39,42 @@
                     </div>
                     <div class="col-sm-9">
                         <div class="top-header">                            
-                            <i class="fa fa-clock-o"></i> Mon - Fri: 7:30am - 5:30pm                
+                            <i class="fa fa-clock-o"></i> Mon - Fri: 7:30am - 5:30pm 
+                            <!-- Right Side Of Navbar -->
+                           <ul class="nav navbar-nav navbar-right">
+                            <!-- Authentication Links -->
+                                @if (Auth::guest())
+                                    <li><a href="{{ route('login') }}">Login</a></li>
+                                    <li><a href="{{ route('register') }}">Register</a></li>
+                                @else
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                            {{ Auth::user()->name }} <span class="caret"></span>
+                                        </a>
+
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li>
+                                                <a href="{{ route('logout') }}"
+                                                    onclick="event.preventDefault();
+                                                             document.getElementById('logout-form').submit();">
+                                                    Logout
+                                                </a>
+
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                    {{ csrf_field() }}
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                @endif
+                            </ul> 
                         </div>
+                        <!--  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+                            <span class="sr-only">Toggle Navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button> -->
                         <nav class="site-nav-wrap">
                             <ul class="nav">
                                 <li><a href="javascript:;" title="How it works?">How it works?</a></li>
@@ -50,7 +87,7 @@
                 </div>
             </div>
         </header>
-
+       <?php endif ?>
 
 
 
@@ -114,6 +151,7 @@
 
         @yield('content')
 
+        <?php if(!($currentPath == 'login' || $currentPath == 'register' || $currentPath == 'password/reset')):?>
         <footer>
             <div class="container">
                 <div class="row">
@@ -175,12 +213,12 @@
             © Copyright 2018 Roadlink  
         </div>
     </div>
-
+   <?php endif ?>
     <!-- Scripts -->
     <script src="{{ asset('/public/js/app.js') }}"></script>
 
     <script type="text/javascript" src="{{ asset('/public/front/js/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('/public/front/js/bootstrap.min.js') }}"></script>
+    <!-- <script type="text/javascript" src="{{ asset('/public/front/js/bootstrap.min.js') }}"></script> -->
     <script type="text/javascript" src="{{ asset('/public/front/js/slick.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/public/front/js/main.js') }}"></script>
 
