@@ -25,4 +25,8 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function postService(Request $request){
+        echo "<pre>";print_r($request->all());exit;
+    }
 }

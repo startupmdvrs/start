@@ -8,38 +8,51 @@
     </div>
     <div class="service-form-outer">
         <div class="container">
-            <form method="post" action="" class="service-form" id="serv_form">
+            <!-- <form method="post" action="" class="service-form" id="serv_form"> -->
+            {!! Form::open(['route' => 'service.store', 'class' => 'service-form', 'id' => 'serv_form' ]) !!}
                 <!-- tabs -->
-                <div class="tab-outer">
-                    <a href="javascript:;" data-tabId="wh2" class="active">
+                <div class="tab-outer" id="serv_form_div">
+                    <a href="javascript:;" id="two_wheel_a" data-tabId="wh2" class="active">
                         <label>
-                            <input type="radio" name="vehicle_type" value="2 wheel" />
+                            <input type="radio" name="vehicle_type" checked="checked" id="1" value="4" />
                             2 Wheelers
                         </label>
                     </a>
-                    <a href="javascript:;" data-tabId="wh4">
+                    <a href="javascript:;" id="four_wheel_a" data-tabId="wh4">
                         <label>
-                            <input type="radio" name="vehicle_type" value="4 wheel" />
+                            <input type="radio" name="vehicle_type" id="2" value="4" />
                             4 Wheelers
                         </label>
                     </a>
                 </div>
+
+                <!-- <div class="tab-outer">
+                    
+                            <input type="radio" name="vehicle_type" id="two_wheel" value="two_wheel" />
+                            2 Wheelers
+                       
+                            <input type="radio" name="vehicle_type" id="four_wheel" value="four_wheel" />
+                            4 Wheelers
+                       
+                </div> -->
                 <div class="tab-content">
                     <div class="content-inner">
                         <div class="form-group">
                             <label>Brand</label>
-                            <select class="form-control">
-                                <option>Hero</option>
+                            <select name="vehicle_company" id="vehicle_company" class="form-control">
+                                <option>Select Brand Name</option>
+                                <!-- <option>Hero</option>
                                 <option>Honda</option>
-                                <option>Bajaj</option>
+                                <option>Bajaj</option> -->
                             </select>
                         </div>
                         <div class="form-group">
                             <label>Model</label>
-                            <select class="form-control">
-                                <option>Avenger</option>
+                            <select name="vehicle_model" id="vehicle_model" class="form-control">
+                                <option>Select Model</option>
+                                <!-- <option>Avenger</option>
                                 <option>Bajaj V</option>
-                                <option>Discover</option>
+                                <option>Discover</option> -->
                             </select>
                         </div>
                         <div class="text-right">
@@ -47,7 +60,8 @@
                         </div>
                     </div>
                 </div>
-            </form>
+            {!! Form::close() !!}
+            <!-- </form> -->
         </div>
     </div>
 </section>
@@ -392,4 +406,12 @@
         </div>
     </div>
 </section>
+
 @endsection
+
+@push('scripts')
+    <!-- $("input[name='vehicle_type']").each(function(){ 
+        alert("call");
+    }); -->
+    alert("call");
+@endpush

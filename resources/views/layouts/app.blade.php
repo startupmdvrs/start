@@ -218,9 +218,95 @@
     <script src="{{ asset('/public/js/app.js') }}"></script>
 
     <script type="text/javascript" src="{{ asset('/public/front/js/jquery.min.js') }}"></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+    
     <!-- <script type="text/javascript" src="{{ asset('/public/front/js/bootstrap.min.js') }}"></script> -->
     <script type="text/javascript" src="{{ asset('/public/front/js/slick.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/public/front/js/main.js') }}"></script>
+    <script type="text/javascript">
+
+        var baseurl = "<?php echo url('/');?>";
+
+        $("input[name='vehicle_type']").change(function(){ 
+            
+            var vehicleType = $(this).parent().parent().attr('id');
+            $("#serv_form_div a").each(function(){ 
+                var aId = $(this).attr('id');
+                $('#'+aId).removeClass('active');
+            });
+
+            $('#'+vehicleType).addClass('active');
+
+            $.ajax({
+                url: baseurl+'/brandlist',
+                method: "POST",
+                data: {'vehicle_type': $(this).attr('id')},
+                success(data){
+                
+                    var options = "<option>Select Brand Name</option>";
+                    $.each( data, function( key, value ) {
+                    
+                        options = options+"<option value="+value.id+">"+value.company_name+"</option>";
+                    });
+
+                    $('#vehicle_company').html(options);
+
+                    $('#vehicle_model').html("<option>Select Model</option>");
+                }
+            });
+        });
+
+
+        $('#vehicle_company').change(function(){
+            
+            var vehicle_type = $("input[name='vehicle_type']").attr('id');
+
+            $.ajax({
+                url: baseurl+'/vehicle-model-list',
+                method: "POST",
+                data: { 
+                    'company_name' : $(this).val(),
+                    'vehicle_type' : vehicle_type
+                },
+                success(data){
+                    var options = "<option>Select Model</option>";
+                    $.each( data, function( key, value ) {
+                        options = options+"<option value="+value.id+">"+value.model_name+"</option>";
+                    });
+                    $('#vehicle_model').html(options);
+                }
+            });    
+        });
+
+        $( document ).ready(function() {
+            
+
+            var  vehicleTypeId = $("input[name='vehicle_type']:checked").attr('id');
+            
+            $.ajax({
+                url: baseurl+'/brandlist',
+                method: "POST",
+                data: {'vehicle_type': vehicleTypeId},
+                success(data){
+                
+                    var options = "<option>Select Brand Name</option>";
+                    $.each( data, function( key, value ) {
+                    
+                        options = options+"<option value="+value.id+">"+value.company_name+"</option>";
+                    });
+
+                    $('#vehicle_company').html(options);
+                }
+            });
+
+
+
+        });
+
+    </script>
+    @stack('scripts')
 
 </body>
 </html>

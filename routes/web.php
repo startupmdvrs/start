@@ -19,6 +19,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/brandlist', 'Frontend\BrandController@getbrandlishting')->name('brandlist');
+Route::get('/vehicle-model-list', 'Frontend\ModelController@getmodellishting')->name('vehicle-model-list');
+
+Route::post('service-store','HomeController@postService')->name('service.store');
 
 Route::group(['prefix'=>'admin', 'middleware' => ['web']], function () {
 
