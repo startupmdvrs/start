@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Vehicle_type;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,19 +12,38 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function (App\Models\Vehicle_type $vehicle_type) {
+    
+    $vehicle_types = $vehicle_type->all();
+    // //dd($vehicle_type);exit;
+    // echo "<pre>";print_r( $vehicle_type);exit;
+    // foreach ($vehicle_type as $key => $value) {
+    //     echo "<pre>";print_r( $value);exit;
+    // }
+    return view('welcome', ['vehicle_types' => $vehicle_types]);
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/logout','Auth\AuthController@getLogout')->name('getUserLogOutPage');
 
 Route::get('/brandlist', 'Frontend\BrandController@getbrandlishting')->name('brandlist');
 Route::get('/vehicle-model-list', 'Frontend\ModelController@getmodellishting')->name('vehicle-model-list');
 
 Route::post('service-store','HomeController@postService')->name('service.store');
 
+//front routes
+Route::group(['namespace'=>'Auth'], function () {
+    Route::get('/login','AuthController@getLogin')->name('getUserLoginPage');
+    Route::post('/login','AuthController@postLogin')->name('postUserLoginPage');
+    Route::get('/logout','AuthController@getLogout')->name('getUserLogOutPage');
+    Route::get('/register', 'AuthController@showRegistrationForm')->name('getUserRegisterPage');
+    Route::post('/register', 'RegisterController@register')->name('postUserRegisterPage');
+});
+
+
+//admin routes
 Route::group(['prefix'=>'admin', 'middleware' => ['web']], function () {
 
     Route::group(['namespace'=>'Backend\AdminAuth'], function () {
@@ -32,7 +52,6 @@ Route::group(['prefix'=>'admin', 'middleware' => ['web']], function () {
         Route::get('/login','AuthController@getLogin')->name('getAdminLoginPage');
         Route::post('/login','AuthController@postLogin')->name('postAdminLoginPage');
         Route::get('/logout','AuthController@getLogout')->name('getAdminLogOutPage');
-
         // Registration Routes...
         Route::get('/register', 'AuthController@showRegistrationForm')->name('getAdminRegisterPage');
         //Route::post('/register', 'AuthController@register')->name('postAdminRegisterPage');

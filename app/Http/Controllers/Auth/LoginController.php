@@ -4,9 +4,19 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Middleware\Authenticate;
+use App\Http\Requests;
+use App\Models\User;
+use Illuminate\Contracts\Auth\Authenticable;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
-use Auth;
+//use Auth;
+
 
 class LoginController extends Controller
 {
@@ -61,7 +71,7 @@ class LoginController extends Controller
                 ->with(array('alert-class'=>'alert-success', 'message'=>'You are successfully logged in.'));
         }else{
             
-            //return redirect()->back()->with(array('alert-class'=>'alert-danger','message'=>'Invalid email or password!'))->withInput(Input::all());
+            return redirect()->back()->with(array('alert-class'=>'alert-danger','message'=>'Invalid email or password!'))->withInput(Input::all());
 
             //return redirect()->back()->withInput($request->only($this->username(), 'remember'))->withErrors(['active' => 'You must be active to login.']);
 

@@ -10,9 +10,32 @@
         <div class="container">
             <!-- <form method="post" action="" class="service-form" id="serv_form"> -->
             {!! Form::open(['route' => 'service.store', 'class' => 'service-form', 'id' => 'serv_form' ]) !!}
+
                 <!-- tabs -->
                 <div class="tab-outer" id="serv_form_div">
-                    <a href="javascript:;" id="two_wheel_a" data-tabId="wh2" class="active">
+
+                    @foreach ($vehicle_types as $vehicle_type)
+
+                        @if ($vehicle_type->id == 1)
+                            @php
+                                $vehicle_type_a = "class='active'";
+                                $vehicle_type_radio = "checked='checked'";
+                            @endphp
+                        @else
+                            @php
+                                $vehicle_type_a = "";
+                                $vehicle_type_radio = "";
+                            @endphp
+                        @endif
+
+                        <a href="javascript:;" id="{{ $vehicle_type->name }}_a" data-tabId="wh{{ $vehicle_type->id }}" {{ $vehicle_type_a}} >
+                            <label>
+                                <input type="radio" name="vehicle_type"  id="{{ $vehicle_type->id }}" value="{{ $vehicle_type->id }}" {{$vehicle_type_radio}} />
+                                {{ $vehicle_type->name }}
+                            </label>
+                        </a>
+                    @endforeach
+                    <!-- <a href="javascript:;" id="two_wheel_a" data-tabId="wh2" class="active">
                         <label>
                             <input type="radio" name="vehicle_type" checked="checked" id="1" value="4" />
                             2 Wheelers
@@ -23,7 +46,7 @@
                             <input type="radio" name="vehicle_type" id="2" value="4" />
                             4 Wheelers
                         </label>
-                    </a>
+                    </a> -->
                 </div>
 
                 <!-- <div class="tab-outer">

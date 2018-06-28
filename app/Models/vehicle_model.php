@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class vehicle_model extends Model
+class Vehicle_model extends Model
 {
     public $fillable = ['company_name', 'vehicle_type', 'model_name', 'status'];
 
