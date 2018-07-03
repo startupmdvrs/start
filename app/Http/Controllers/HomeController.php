@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     /**
@@ -26,7 +26,27 @@ class HomeController extends Controller
         return view('front/home');
     }
 
-    public function postService(Request $request){
-        echo "<pre>";print_r($request->all());exit;
+    public function postService(Request $request)
+    {
+        
+        $vehicle_type = $request->input('vehicle_type');
+        $vehicle_company = $request->input('vehicle_company');
+        $vehicle_model = $request->input('vehicle_model');
+
+        $request->session()->put('vehicle_type', $vehicle_type);
+        $request->session()->put('vehicle_company', $vehicle_company);
+        $request->session()->put('vehicle_model', $vehicle_model);
+
+
+        // $request->session()->push('vehicle_type', $vehicle_type);
+        // $request->session()->push('vehicle_company', $vehicle_company);
+        // $request->session()->push('vehicle_model', $vehicle_model);
+
+
+        //echo "<pre>";print_r($request->session()->all());exit;
+        //echo "<pre>";print_r($request->all());exit;
+
+        return redirect('service-detail');
+
     }
 }

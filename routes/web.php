@@ -33,6 +33,10 @@ Route::get('/vehicle-model-list', 'Frontend\ModelController@getmodellishting')->
 
 Route::post('service-store','HomeController@postService')->name('service.store');
 
+Route::get('/service-detail', 'ServiceController@serviceDetail')->name('service-detail');
+
+
+
 //front routes
 Route::group(['namespace'=>'Auth'], function () {
     Route::get('/login','AuthController@getLogin')->name('getUserLoginPage');
