@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use view;
 
 class ServiceController extends Controller
 {
@@ -17,6 +18,8 @@ class ServiceController extends Controller
     }
 
     public function serviceDetail(){
+
+    	
     	return view('front/serviceDetail');
     }
 
