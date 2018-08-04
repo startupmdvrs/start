@@ -23,15 +23,28 @@
     <div class="container">
         <div class="tab-init">
             <div class="row serv-links">
-                <div class="col-xs-4">
-                    <a href="javascript:;" title="" class="active"><i class="fa fa-cog"></i>Service Your Ride</a>
-                </div>
-               <div class="col-xs-4">
-                    <a href="javascript:;" title=""><i class="fa fa-wrench"></i>Repair Your Ride</a>
-                </div>
-               <div class="col-xs-4">
-                    <a href="javascript:;" title=""><i class="fa fa-paint-brush"></i>Paint Your Ride</a>
-                </div>
+
+                @foreach ($maintenance_types as $maintenance_type)
+                    
+                        @if ($loop->first)
+                        <div class="col-xs-4">
+                            <a href="javascript:;" title="" class="active">
+                        @else
+                        <div class="col-xs-2">
+                            <a href="javascript:;" title="">
+                        @endif
+
+                            <i class="fa fa-cog"></i>
+                            {{ $maintenance_type->name }}
+                        </a>
+                    </div>
+                    <!-- <div class="col-xs-4">
+                        <a href="javascript:;" title=""><i class="fa fa-wrench"></i>Repair Your Ride</a>
+                    </div>
+                    <div class="col-xs-4">
+                        <a href="javascript:;" title=""><i class="fa fa-paint-brush"></i>Paint Your Ride</a>
+                    </div> -->
+                @endforeach
             </div> 
         </div>
     </div>

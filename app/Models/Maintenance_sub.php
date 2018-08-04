@@ -4,25 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Vehicle_model extends Model
+class Maintenance_sub extends Model
 {
-    public $fillable = ['company_name', 'vehicle_type', 'model_name', 'status'];
+    public $fillable = ['name', 'maintenance_id', 'description'];
 
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'vehicle_model';
+    protected $table = 'maintenance_sub';
 
-     /**
+    /**
      * Indicates if the model should be timestamped.
      *
      * @var bool
      */
     public $timestamps = false;
 
-    public function Vehicle_type() {
-        return $this->belongsTo('\App\Models\Vehicle_type','vehicle_type', 'id');
+    public function maintenance() {
+		return $this->belongsTo('\App\Models\Maintenance','maintenance_id', 'id');
     }
 }

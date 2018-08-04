@@ -14,4 +14,8 @@ class Vehicle_type extends Model
      * @var string
      */
     protected $table = 'vehicle_type';
+
+    public function Vehicle_models() {
+      return $this->hasMany('\App\Models\Vehicle_model')->orderBy('name');
+    }
 }

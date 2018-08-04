@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use view;
+use App\Models\Maintenance;
 
 class ServiceController extends Controller
 {
@@ -17,10 +18,19 @@ class ServiceController extends Controller
         //$this->middleware('auth');
     }
 
-    public function serviceDetail(){
+    public function serviceDetail()
+    {
 
+    	//$maintenanceTypes = Maintenance::all()->where('status', '=', 'active');
+
+    	//$maintenanceTypes = Maintenance::find(1)->maintenance_subs()->where('status', '=', 'active')->all();
+
+    	$maintenanceTypes = Maintenance::all()->where('status', '=', 'active');
+
+
+    	//dd($maintenanceTypes);
     	
-    	return view('front/serviceDetail');
+    	return view('front/serviceDetail', ['maintenance_types' => $maintenanceTypes]);
     }
 
 }
